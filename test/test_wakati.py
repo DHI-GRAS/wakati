@@ -14,14 +14,22 @@ def test_base(capsys):
         time.sleep(2)
     assert abs(timer.elapsed[0] - 2) < 1e-3
     captured = capsys.readouterr()
-    assert captured.out == 'test took 2.00s\n'
+    assert captured.out == '[test]: 2.00s\n'
 
 
 def test_base2(capsys):
     with wakati.Timer('test'):
         time.sleep(2)
     captured = capsys.readouterr()
-    assert captured.out == 'test took 2.00s\n'
+    assert captured.out == '[test]: 2.00s\n'
+
+
+def test_base3(capsys):
+    timer = wakati.Timer('test')
+    with timer:
+        time.sleep(61.1)
+    captured = capsys.readouterr()
+    assert captured.out == '[test]: 1m 1s\n'
 
 
 def test_multiple(capsys):
@@ -32,7 +40,7 @@ def test_multiple(capsys):
         time.sleep(1)
     assert abs(timer.elapsed[0] - 1) < 1e-3 and abs(timer.elapsed[1] - 1) < 1e-3
     captured = capsys.readouterr()
-    assert captured.out == 'test took 1.00s\n' * 2
+    assert captured.out == '[test]: 1.00s\n' * 2
 
 
 def test_noreport(capsys):
@@ -43,7 +51,7 @@ def test_noreport(capsys):
 
 
 def test_custom_message(capsys):
-    with wakati.Timer('test', message='A test message. {elapsed:.0f}{unit}{name}'):
+    with wakati.Timer('test', message='A test message. {elapsed:.0f}s{name}', auto_unit=False):
         time.sleep(2)
     captured = capsys.readouterr()
     assert captured.out == 'A test message. 2stest\n'
@@ -65,4 +73,3 @@ def test_setattr_forbidden():
         assert False
     except AttributeError as e:
         assert str(e) == 'can\'t set attribute'
-    
