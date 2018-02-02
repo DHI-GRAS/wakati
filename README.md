@@ -12,15 +12,15 @@ Painless timing in Python modules ⏰
 
 >>> with wakati.Timer('allocation'):
 ...    a = np.random.rand(100, 100)
-[allocation]: 0.12ms
+'[allocation]: 0.12ms'
 
 >>> with wakati.Timer('mean'):
 ...    b = a.mean()
-[mean]: 0.14ms
+'[mean]: 0.14ms'
 
 >>> with wakati.Timer('sleep'):
 ...    time.sleep(2)
-[sleep]: 2.00s
+'[sleep]: 2.00s'
 ```
 
 ## Other Examples
@@ -54,7 +54,7 @@ Painless timing in Python modules ⏰
 
 >>> with wakati.Timer('work', report_to=logging.warn):
 ...    np.sum(np.random.rand(100, 100))
-WARNING:root:[work]: 0.20ms
+'WARNING:root:[work]: 0.20ms'
 ```
 
 ### Custom messages
@@ -65,7 +65,7 @@ WARNING:root:[work]: 0.20ms
 
 >>> with wakati.Timer('main', message='This took {elapsed}'):
 ...    time.sleep(65)
-This took 1m 5s
+'This took 1m 5s'
 ```
 
 ### More custom messages
@@ -78,7 +78,7 @@ This took 1m 5s
 >>> timer.greeting = 'Hi there'
 >>> with timer:
 ...    time.sleep(5)
-Hi there! This took 5.00s
+'Hi there! This took 5.00s'
 ```
 
 ### Disable unit conversions
@@ -89,4 +89,4 @@ Hi there! This took 5.00s
 
 >>> with wakati.Timer('main', message='{name} took {elapsed:.2e}s', auto_unit=False):
 ...    time.sleep(0.01)
-main took 1.05e-02s
+'main took 1.05e-02s'
