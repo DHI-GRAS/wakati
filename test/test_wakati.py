@@ -12,7 +12,7 @@ def test_base(capsys):
     timer = wakati.Timer('test')
     with timer:
         time.sleep(2)
-    assert abs(timer.elapsed[0] - 2) < 1e-3
+    assert abs(timer.elapsed[0] - 2) < 1e-2
     captured = capsys.readouterr()
     assert captured.out == '[test]: 2.00s\n'
 
@@ -38,7 +38,7 @@ def test_multiple(capsys):
         time.sleep(1)
     with timer:
         time.sleep(1)
-    assert abs(timer.elapsed[0] - 1) < 1e-3 and abs(timer.elapsed[1] - 1) < 1e-3
+    assert abs(timer.elapsed[0] - 1) < 1e-2 and abs(timer.elapsed[1] - 1) < 1e-2
     captured = capsys.readouterr()
     assert captured.out == '[test]: 1.00s\n' * 2
 
@@ -70,6 +70,7 @@ def test_setattr_forbidden():
     timer = wakati.Timer('test')
     try:
         timer.elapsed = 'test'
-        assert False
     except AttributeError as e:
         assert str(e) == 'can\'t set attribute'
+    else:
+        assert False

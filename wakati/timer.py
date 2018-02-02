@@ -71,7 +71,7 @@ class Timer:
             return '{value:.2f}{unit}'.format(value=remainder, unit=DECIMAL_UNITS[unit])
 
         pieces = []
-        remainder = round(remainder)
+        remainder = int(round(remainder))
         for factor in sorted(UNITS.keys(), reverse=True):
             if remainder < factor:
                 continue
