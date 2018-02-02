@@ -26,7 +26,7 @@ def _stdout(message):
     return sys.stdout.write(''.join([message, '\n']))
 
 
-class Timer:
+class Timer(object):
     def __init__(self, name, report=True, message=DEFAULT_REPORT_MESSAGE,
                  report_to=_stdout, auto_unit=True):
         self._start = []
@@ -56,9 +56,9 @@ class Timer:
         if self.auto_unit:
             elapsed = self._pprint_timedelta(elapsed)
 
-        public_attributes = {key: val for key, val in vars(self).items() if not key.startswith('_')}
-        public_attributes['elapsed'] = elapsed
-        message = self.message.format(**public_attributes)
+        attributes = vars(self)
+        attributes['elapsed'] = elapsed
+        message = self.message.format(**attributes)
         return self.report_to(message)
 
     @staticmethod
