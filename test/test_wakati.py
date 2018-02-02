@@ -1,4 +1,5 @@
 import time
+import re
 
 import wakati
 
@@ -17,19 +18,27 @@ def test_base(capsys):
     assert captured.out == '[test]: 2.00s\n'
 
 
-def test_base2(capsys):
+def test_base_2(capsys):
     with wakati.Timer('test'):
         time.sleep(2)
     captured = capsys.readouterr()
     assert captured.out == '[test]: 2.00s\n'
 
 
-def test_base3(capsys):
+def test_base_long(capsys):
     timer = wakati.Timer('test')
     with timer:
         time.sleep(61.1)
     captured = capsys.readouterr()
     assert captured.out == '[test]: 1m 1s\n'
+
+
+def test_base_short(capsys):
+    timer = wakati.Timer('test')
+    with timer:
+        pass
+    captured = capsys.readouterr()
+    assert re.match(r'\[test\]: \d\.\d{2}[μn]s\n', captured.out)
 
 
 def test_multiple(capsys):
