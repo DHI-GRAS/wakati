@@ -6,6 +6,14 @@ Painless timing in Python modules ⏰
 
 Pure Python, no dependencies, minimal overhead.
 
+## Installation
+
+```bash
+pip install wakati
+```
+
+That's it.
+
 ## Usage
 `wakati` provides a context manager `Timer`:
 
