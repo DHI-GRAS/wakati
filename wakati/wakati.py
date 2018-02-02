@@ -30,6 +30,22 @@ class Timer(object):
     """Wakati: Easy timing in Python modules
 
     Arguments:
+        name (str): Identifier of the Timer object.
+        report (bool, optional): Print report after exiting context manager (default: True).
+        message (str, optional): Message to print when reporting. Placeholders in `{}` are
+            replaced by instance attributes via `str.format`.
+        report_to (callable, optional): Reports are sent to this callable
+            (default: `sys.stdout.write`).
+        auto_unit (bool, optional): Automatically choose the most appropriate time unit when
+            reporting (default: True).
+
+    Example:
+        >>> import wakati
+        >>> import time
+        >>> timer = wakati.Timer('test')
+        >>> with timer:
+        ...     time.sleep(2)
+        '[test]: 2.00s'
 
     """
     def __init__(self, name, report=True, message=DEFAULT_REPORT_MESSAGE,
