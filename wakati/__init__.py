@@ -1,1 +1,1 @@
-from wakati.timer import Timer
+from wakati.wakati import Timer

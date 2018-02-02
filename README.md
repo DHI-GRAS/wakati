@@ -1,5 +1,10 @@
+[![Build Status](https://travis-ci.org/DHI-GRAS/wakati.svg?branch=master)](https://travis-ci.org/DHI-GRAS/wakati)
+[![codecov](https://codecov.io/gh/DHI-GRAS/wakati/branch/master/graph/badge.svg)](https://codecov.io/gh/DHI-GRAS/wakati)
+
 # wakati
 Painless timing in Python modules ⏰
+
+Pure Python, no dependencies, minimal overhead.
 
 ## Usage
 `wakati` provides a context manager `Timer`:
