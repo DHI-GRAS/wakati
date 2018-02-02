@@ -14,6 +14,14 @@ def test_init():
     assert isinstance(timer, wakati.Timer)
 
 
+def test_repr():
+    timer = wakati.Timer('test')
+    for _ in range(100):
+        with timer:
+            pass
+    assert repr(timer) == '<wakati.Timer (name: test, num_times: 100)>'
+
+
 def test_base(capsys):
     timer = wakati.Timer('test')
     with timer:

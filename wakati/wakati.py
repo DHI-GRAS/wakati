@@ -27,6 +27,11 @@ def _stdout(message):
 
 
 class Timer(object):
+    """Wakati: Easy timing in Python modules
+
+    Arguments:
+
+    """
     def __init__(self, name, report=True, message=DEFAULT_REPORT_MESSAGE,
                  report_to=_stdout, auto_unit=True):
         self._start = []
@@ -48,11 +53,16 @@ class Timer(object):
         if self.report:
             self.print_report(elapsed)
 
+    def __repr__(self):
+        return '<wakati.Timer (name: %s, num_times: %d)>' % (self.name, len(self.elapsed))
+
     @property
     def elapsed(self):
+        """List of all recorded times in seconds"""
         return self._elapsed
 
     def print_report(self, elapsed):
+        """Pretty-print a report for given time"""
         if self.auto_unit:
             elapsed = self._pprint_timedelta(elapsed)
 
