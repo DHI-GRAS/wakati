@@ -1,6 +1,6 @@
 from __future__ import unicode_literals
 
-from setuptools import setup, find_packages
+from setuptools import setup
 
 from codecs import open
 from os import path
@@ -13,7 +13,7 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
 
 setup(
     name='wakati',
-    version='0.0.1',
+    version='1.0',
     description='Easy timing in Python modules',
     long_description=long_description,
     url='https://github.com/DHI-GRAS/wakati',
@@ -30,5 +30,5 @@ setup(
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
     ],
-    packages=find_packages(exclude=['test'])
+    packages=['wakati'],
 )

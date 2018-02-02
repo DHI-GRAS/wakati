@@ -53,16 +53,16 @@ class Timer:
         return self._elapsed
 
     def print_report(self, elapsed):
+        if self.auto_unit:
+            elapsed = self._pprint_timedelta(elapsed)
+
         public_attributes = {key: val for key, val in vars(self).items() if not key.startswith('_')}
-        public_attributes.update(
-            elapsed=self._pprint_timedelta(elapsed) if self.auto_unit else elapsed
-        )
+        public_attributes['elapsed'] = elapsed
         message = self.message.format(**public_attributes)
         return self.report_to(message)
 
     @staticmethod
     def _pprint_timedelta(remainder):
-
         if remainder < 60:
             unit = 1
             while remainder < 0.1:
@@ -71,11 +71,10 @@ class Timer:
             return '{value:.2f}{unit}'.format(value=remainder, unit=DECIMAL_UNITS[unit])
 
         pieces = []
-        remainder = int(remainder)
+        remainder = round(remainder)
         for factor in sorted(UNITS.keys(), reverse=True):
             if remainder < factor:
                 continue
             unit_value, remainder = divmod(remainder, factor)
             pieces.append('{value:d}{unit}'.format(value=unit_value, unit=UNITS[factor]))
-
         return ' '.join(pieces)
