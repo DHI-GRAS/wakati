@@ -13,7 +13,7 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
 
 setup(
     name='wakati',
-    version='1.0',
+    version='1.1',
     description='Easy timing in Python modules',
     long_description=long_description,
     url='https://github.com/DHI-GRAS/wakati',
