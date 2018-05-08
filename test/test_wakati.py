@@ -96,3 +96,27 @@ def test_setattr_forbidden():
         assert str(e) == 'can\'t set attribute'
     else:
         assert False
+
+
+def test_exception_report(capsys):
+    timer = wakati.Timer('test', report_on_error=True)
+    try:
+        with timer:
+            time.sleep(2)
+            raise Exception
+    except:
+        pass
+    captured = capsys.readouterr()
+    assert captured.out == '[test]: 2.00s\n'
+
+
+def test_exception_noreport(capsys):
+    timer = wakati.Timer('test', report_on_error=False)
+    try:
+        with timer:
+            time.sleep(2)
+            raise Exception
+    except:
+        pass
+    captured = capsys.readouterr()
+    assert not captured.out

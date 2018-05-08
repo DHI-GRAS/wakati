@@ -49,24 +49,26 @@ class Timer(object):
 
     """
     def __init__(self, name, report=True, message=DEFAULT_REPORT_MESSAGE,
-                 report_to=_stdout, auto_unit=True):
+                 report_to=_stdout, auto_unit=True, report_on_error=False):
         self._start = []
         self._elapsed = []
 
         self.name = name
         self.report = report
         self.report_to = report_to
+        self.report_on_error = report_on_error
         self.message = message
         self.auto_unit = auto_unit
 
     def __enter__(self):
         self._start.append(timeit.default_timer())
 
-    def __exit__(self, *args):
+    def __exit__(self, exception_type, *args):
         elapsed = timeit.default_timer() - self._start.pop()
         self._elapsed.append(elapsed)
 
-        if self.report:
+        exception_occured = exception_type is not None
+        if self.report and (not exception_occured or self.report_on_error):
             self.print_report(elapsed)
 
     def __repr__(self):
